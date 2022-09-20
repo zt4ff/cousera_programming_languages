@@ -17,3 +17,16 @@ that make and already existing contruct easy or more plesant that the existing c
 
 (* ------------------------------------------------------------------------------------------------------------------------------------- *)
 (* DATATYPE BINDING *)
+(* This is a contruct that allows you to make to define custom types *)
+datatype MyType = int | string
+(* above I created a custom type that can either be an int or a string*)
+(* for example *)
+datatype mytype = TwoInts of int * int | Str of string | Pizza
+fun f (x: mytype) =
+    case x of
+        Pizza => 3
+        | Str s => 8
+        | TwoInts(i1, i2) => i1 + i2
+(* example of using datatype in a card playing game *)
+datatype suit = Club | Diamond | Heart| Spade;
+datatype rank = Jack | Queen | King | Ace | Num of int;
