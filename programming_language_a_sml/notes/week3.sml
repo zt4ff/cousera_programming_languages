@@ -49,3 +49,49 @@ type student_record = {
     last: string
 };
 
+
+(* MORE ABOUT PATTERN MATCHING *)
+(* pattern matching also works for records and turples *)
+(* the pattern (x1, x2) matches the turple value (v1, v2) *)
+(* the pattern {f1=x1, f2=x3} matches the record value {fi=v1, f2=v2} *)
+
+(* some examples - though it's a poor style *)
+fun sum_of_three(tripple) =
+    case tripple of
+        (x, y, z) => x + y + z;
+
+fun print_full_name(person) =
+    case person of
+        {firstname=x, lastname=y} => x ^ ", " ^ y;
+
+print_full_name({firstname="Segun", lastname="Kayode"});
+
+(* in the two functions above, the pattern matching is a bad style for a pattern that should have only a single branch *)
+(* so val a kinda like a pattern matching contruct *)
+val tripple = (1, 2, 3);
+val (x, y, z) = tripple;
+(* the above code would match the turple into the variables x, y, z *)
+(* knowing this would work, we can rewrite the function above *)
+fun sum_of_three1 tripple =
+    let 
+        val (x, y, z) = tripple
+    in
+      x + y + z
+    end;
+
+sum_of_three1((1, 2, 1));
+
+fun print_full_name1 person =
+    let val {firstname=x, lastname=y} = person
+    in
+      x ^ ", " ^ y
+    end;
+
+print_full_name1({firstname="Adelade", lastname="Ipaye"});
+
+
+(* now function argument also have pattern matching, so we cna simplify this process *)
+fun sum_of_three2 (x, y, z) =
+    x + y + z;
+
+sum_of_three2((1, 4, 1))
