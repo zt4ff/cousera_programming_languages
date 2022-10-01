@@ -95,3 +95,20 @@ fun sum_of_three2 (x, y, z) =
     x + y + z;
 
 sum_of_three2((1, 4, 1))
+
+
+(* creating an append function *)
+fun append(xs, ys) =
+    case xs of
+        [] => ys
+        x::xs' => x :: apend(xs', ys)
+
+(* EXCEPTION *)
+exception MyError of int * int
+(* you can pass date to whosoever is handlign your exception using this construct *)
+raise MyError(2, 3)
+
+(* how to handle exception *)
+expression1 handle excepname => expression2
+(* means if expression1 reaise an exception the handle keyworkd checks if the exception  *)
+(* matches the excepname given then runs the expression2 *)
