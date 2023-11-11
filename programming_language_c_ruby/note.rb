@@ -70,28 +70,82 @@ class C
     end
 end
 
-# 4. A longer example
-class MyRational
+# 4. Arrays - it's pretty similar to Python's list
+arr = [1, 3, "welcome", true] 
+x = if arr[0] > arr[1] then 10 else 20 end
+y = Array.new(x)
 
-    def initialize(num,den=1)
-        if den == 0
-            raise "MyRational received an inappropiate argument"
-        elsif den < 0
-            @num = - num
-            @den = - den
-        else
-            @num = num
-            @den = den
-        end
-        reduce # i.e self.reduce but reducte is private
+# push to the top of a stack
+arr.push 3
+# pop to top of the stack
+arr.pop
+
+# it also has shift and unshift
+# arr.each { |1| puts (i*i) }
+
+# 5. Blocks. Blocks are closure in the sense that they can refer the the
+# variables in scope where the block is defined. For example, after this program
+# executes, y is bound to 10
+y = 7
+[4, 5, 6].each { y += 1} # y is now 10
+
+
+# In rare occasions, you may need to create block for your method
+def foo x
+    if x
+        yield
+    else
+        yield
+        yield
     end
+end
 
-    def to_ _s
-        ans = @num.to__s
-        if @den != 1
-            ans += "/"
-            ans += @den.to__s
+foo (true) { puts "hi" } # hi once
+foo (false) { puts "hi" } # hi twice
+
+# To pass an argument to a yield, you do that like you would a function
+def sing x
+    if x
+        yield 10
+    else 
+        yield 20
+    end
+end
+
+sing (true) {|z| puts z}
+sing (false) {|z| puts z}
+
+def count i
+    if yield i
+        1
+    else 
+        1 + (count (i+1) {|x| yield x})
+    end
+end
+
+# yield acts like a caller to the block and it can be call 
+# several times in a method
+def silly_example x
+    (yield x) + (yield 23)
+end
+
+res = silly_example(5) { |x| x += 2}
+print(res);print("\n")
+
+class Foo
+    def initialize(max)
+        @max = max
+    end
+    def silly
+        yield(4, 5) + yield(@max, @max)
+    end
+    def count base
+        if base > @max
+            raised "reach max"
+        elsif yield base
+            1
+        else
+            1 + (count(base + 1) {|i| yield i})
         end
-        ans
     end
 end
