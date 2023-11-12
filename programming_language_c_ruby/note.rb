@@ -149,3 +149,59 @@ class Foo
         end
     end
 end
+
+# Hashes is pretty similar to records in python
+h1 = {} # or
+h1 = Hash.new
+
+h1["name"] = "Oluwasegun Kayode"
+puts h1
+
+# Creating hash from scratch
+h2 = {
+  "name" => "Segun Kayode",
+  "age" => 34  
+}
+puts h2
+
+h2.each {|k,v| puts k.to_s + v.to_s}
+
+# Range are like array but rather than store a long list of items, 
+# they are objects that store the upper bound and lower bound of a range. 
+r = 1...100
+
+# you can treat them like arrays and call methonds on the. eg
+summ = r.inject(0) {|acc, v| acc + v }
+puts summ
+
+## Subclassing - basically inheritance. Every Class in Ruby is defaultly extending
+# the object class - For example
+
+# point system on a 2d plane
+class Point
+    attr_accessor :x, :y # defines methods x, y, x=, y=
+    
+    def initialize(x, y)
+        @x = x
+        @y = y
+    end
+
+    def distFromOrigin
+        Math.sqrt(@x * @x + @y * @y) # use instance variables
+    end
+
+    def distFromOrigin2
+        Math.sqrt(x * x + y * y) # use getter methods
+    end
+end
+
+class ColorPoint < Point
+    attr_accessor :color
+
+    def initialize(x, y, c="clear")
+        super(x, y)
+        @color = c
+    end
+end
+
+
